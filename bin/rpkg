@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line no-undef
+const { main } = require('../lib');
+main();
