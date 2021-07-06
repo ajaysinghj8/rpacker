@@ -30,13 +30,14 @@ export class DebPackageDetailParser extends Transform {
     }
     this.isFirst = false;
     const pkg: IPackageSummary = parse(chunk.toString());
-    DebPackageService.getPackageInfo(pkg.Package, pkg.Version).then((data: string) => {
-      const pkgInfo = chunk.toString() + '\n' + data;
-      this.push('\n');
-      this.push(JSON.stringify(parseDepPackage(pkgInfo)));
-      this.push(',');
-      cb();
-    });
+    DebPackageService.getPackageInfo(pkg.Package, pkg.Version)
+      .then((data: string) => {
+        const pkgInfo = chunk.toString() + '\n' + data;
+        this.push('\n');
+        this.push(JSON.stringify(parseDepPackage(pkgInfo)));
+        this.push(',');
+      })
+      .finally(cb);
   }
   _flush(cb: TransformCallback): void {
     this.push('\b\n]');
